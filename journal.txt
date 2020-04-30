@@ -1,0 +1,77 @@
+JAVASCRIPT HANDBOOK
+
+// Get unique values of an array
+var j = [...new Set([1, 2, 3, 3])]
+>> [1, 2, 3]
+
+// filter Boolean
+To Filter Falsy values (0, null, undefined, null, false)
+so this trick:
+>> myArray
+    .map(item => {
+        // ...
+    })
+    // Get rid of bad values
+    .filter(Boolean);
+	=> the boolean values will be blowed away
+
+// Create empty object
+let dict = Object.create(null);
+
+// dict.__proto__ === "undefined"
+// No object properties exist until you 
+
+// Merge Objects
+const person = { name: 'David Walsh', gender: 'Male' };
+const tools = { computer: 'Mac', editor: 'Atom' };
+const attributes = { handsomeness: 'Extreme', hair: 'Brown', eyes: 'Blue' };
+
+const summary = {...person, ...tools, ...attributes};
+/*
+Object {
+  "computer": "Mac",
+  "editor": "Atom",
+  "eyes": "Blue",
+  "gender": "Male",
+  "hair": "Brown",
+  "handsomeness": "Extreme",
+  "name": "David Walsh",
+}
+*/
+// Get query string parameter
+URLSearchParams
+var urlParams = new URLSearchParams(window.location.search);
+
+console.log(urlParams.has('post')); // true
+console.log(urlParams.get('action')); // "edit"
+console.log(urlParams.getAll('action')); // ["edit"]
+console.log(urlParams.toString()); // "?post=1234&action=edit"
+console.log(urlParams.append('active', '1')); // "?post=1234&action=edit&active=1"
+
+// Short-Circuit Evaluation
+
+return (foo || []).length;
+
+If the variable foo is truthy, it will be returned. Otherwise, the length of the empty array will be returned: 0 .
+
+return (this.state.data || 'Fetching Data');
+
+// Convert to String
+
+const val = 1 + "";
+console.log(val); // Result: "1"
+console.log(typeof val); // Result: "string"
+
+// Quick Float to Integer
+
+console.log(23.9 | 0);  // Result: 23
+console.log(-23.9 | 0); // Result: -23
+
+//Get the Last Item(s) in an Array
+
+let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(array.slice(-1)); // Result: [9]
+console.log(array.slice(-2)); // Result: [8, 9]
+console.log(array.slice(-3)); // Result: [7, 8, 9]
+
+
