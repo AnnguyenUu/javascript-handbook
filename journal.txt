@@ -74,15 +74,20 @@ console.log(array.slice(-1)); // Result: [9]
 console.log(array.slice(-2)); // Result: [8, 9]
 console.log(array.slice(-3)); // Result: [7, 8, 9]
 
-// splice and splice
+// splice and splice and split
 
 splice is mutable method
 arr = [1, 2, 3, 1]
 example: arr.splice(1, arr.length - 1)
 => arr: [2, 3, 1]
+add element syntax: array.splice(index, number of elements, element)
+delete element syntax: array.splice(index, number of elements)
 
 slice is immutable method
 arr  = [1, 2, 3, 1, 2]
 example: let newArr = arr.slice(0, 3)
 => newArr: [1, 2, 3], arr: [1, 2, 3, 1, 2]
 
+split 
+split is immutable method
+split is split string into substrings and return it as a array
