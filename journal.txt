@@ -113,3 +113,8 @@ const array = [...arr1,...arr2]
 
 let newArray = Array(3).fill('')
 console.log(newArray) => ['', '', '']
+
+//REACT 
+this.setState({ // set state }, () => {execute function here or this is call back})
+._lodash
+._pickBy(data, ._identity) => this is lodash'method is eleminate all falsy value in data
