@@ -118,3 +118,9 @@ console.log(newArray) => ['', '', '']
 this.setState({ // set state }, () => {execute function here or this is call back})
 ._lodash
 ._pickBy(data, ._identity) => this is lodash'method is eleminate all falsy value in data
+
+// substrings
+array.substrings(start, end) => (not include end index)
+example: req.file.path : public\uploads\b14c9d87c7455a6768ffea73c19d6e32
+let fileurl = req.file.path.replace(/\\/g, "/") => public/uploads/b14c9d87c7455a6768ffea73c19d6e32
+fileurl.substrings("public".length)
