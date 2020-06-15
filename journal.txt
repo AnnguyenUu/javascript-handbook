@@ -169,3 +169,9 @@ function getAppleExpirationDate(obj) {
  }
  
  Object.keys(objectA) => ['name']
+ 
+ // prevent click
+ 
+ onClick = (event) => {
+	event.stopPropagation()
+ } 
