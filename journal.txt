@@ -175,3 +175,10 @@ function getAppleExpirationDate(obj) {
  onClick = (event) => {
 	event.stopPropagation()
  } 
+ 
+ // Concat with conditions
+ 
+ let [productstock, countProductstock, countTotal] = await Promise.all([
+      sails.sendNativeQuery(this.req, PRODUCT_STOCK_SQL),
+      sails.sendNativeQuery(this.req, COUNT_PRODUCT_SQL)
+    ].concat((limit && skip === 0 ? [sails.sendNativeQuery(this.req, TOTAL_PRODUCT_STOCK_SQL)] : [])))
