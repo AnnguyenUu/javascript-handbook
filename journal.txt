@@ -194,3 +194,23 @@ set @newStockId = (select id from `stock` where `deletedAt` = 0 limit 1);
 update `stock` set newStockId = @newStockId where newStockId is null and deletedAt <> 0;
 update `stock` set currentStockId = @newStockId where currentStockId is null and deletedAt <> 0;
 => set update with conditions and temp value
+
+// includes method javascript - lodash
+
+syntax: _.includes(collection, value, [fromIndex=0])
+
+Example
+
+_.includes([1, 2, 3], 1);
+// => true
+ 
+_.includes([1, 2, 3], 1, 2);
+// => false
+ 
+_.includes({ 'a': 1, 'b': 2 }, 1);
+// => true
+ 
+_.includes('abcd', 'bc');
+// => true
+
+
