@@ -213,4 +213,15 @@ _.includes({ 'a': 1, 'b': 2 }, 1);
 _.includes('abcd', 'bc');
 // => true
 
+// Convert string array into Array
+
+Example:
+
+let stringArray = "[1, 2]"
+
+string array => array
+
+let realArray = JSON.parse(stringArray)
+
+
 
