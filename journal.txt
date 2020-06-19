@@ -182,3 +182,15 @@ function getAppleExpirationDate(obj) {
       sails.sendNativeQuery(this.req, PRODUCT_STOCK_SQL),
       sails.sendNativeQuery(this.req, COUNT_PRODUCT_SQL)
     ].concat((limit && skip === 0 ? [sails.sendNativeQuery(this.req, TOTAL_PRODUCT_STOCK_SQL)] : [])))
+
+//Example SQL with add, select and where conditions
+
+ALTER TABLE `stock` ADD (
+  `newStockId` double DEFAULT NULL,
+  `currentStockId` double DEFAULT NULL
+); => add column into table `stock`
+
+set @newStockId = (select id from `stock` where `deletedAt` = 0 limit 1);
+update `stock` set newStockId = @newStockId where newStockId is null and deletedAt <> 0;
+update `stock` set currentStockId = @newStockId where currentStockId is null and deletedAt <> 0;
+=> set update with conditions and temp value
