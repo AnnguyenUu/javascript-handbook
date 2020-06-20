@@ -242,5 +242,9 @@ string array => array
 
 let realArray = JSON.parse(stringArray)
 
+Trivia notes:
+
+Everything created in Javascript is either a primitive or an object. Therefore, if it isn't one of those seven primitives, so it's an object
+
 
 
