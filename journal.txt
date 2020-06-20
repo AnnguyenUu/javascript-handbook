@@ -162,3 +162,23 @@ function getAppleExpirationDate(obj) {
  const arr = [1,2,3,4,5,6,7,8,9,10]
  arr.every(n => n > 6) => false
  arr.every(n => n > 0) => true
+ 
+ const withtab = JSON.stringify(example, ["student", "firstName", "lastName"], '\t')
+ 
+ ==> this is result
+ 
+ "student" : [
+	{
+		"firstName": "Tom",
+		"lastName": "Hank"
+	},
+	{
+		"firstName": "Ryan",
+		"lastName": "Gosling"
+	}
+ ]
+ 
+ distance between days
+ let a= moment()
+ let b= moment()
+ a.dff(b, "days")
