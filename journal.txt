@@ -223,5 +223,16 @@ string array => array
 
 let realArray = JSON.parse(stringArray)
 
+Filter two array with commons values
+
+var array1 = ['apples', 'grapes', 'oranges', 'banana'],
+  array2 = ['potato', 'pears', 'grapes', 'berries', 'apples', 'oranges'];
+
+var intersection = array1.filter(function(e) {
+  return array2.indexOf(e) > -1;
+});
+
+console.log(intersection);
+
 
 
