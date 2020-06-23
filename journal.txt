@@ -163,6 +163,25 @@ function getAppleExpirationDate(obj) {
  arr.every(n => n > 6) => false
  arr.every(n => n > 0) => true
  
+ const withtab = JSON.stringify(example, ["student", "firstName", "lastName"], '\t')
+ 
+ ==> this is result
+ 
+ "student" : [
+	{
+		"firstName": "Tom",
+		"lastName": "Hank"
+	},
+	{
+		"firstName": "Ryan",
+		"lastName": "Gosling"
+	}
+ ]
+ 
+ distance between days
+ let a= moment()
+ let b= moment()
+ a.dff(b, "days")
  // 
  let objectA = {
 	'name': 'AN',
@@ -223,7 +242,7 @@ string array => array
 
 let realArray = JSON.parse(stringArray)
 
-Filter two array with commons values
+FILTER TWO ARRAY WITH COMMONS VALUES
 
 var array1 = ['apples', 'grapes', 'oranges', 'banana'],
   array2 = ['potato', 'pears', 'grapes', 'berries', 'apples', 'oranges'];
@@ -233,6 +252,53 @@ var intersection = array1.filter(function(e) {
 });
 
 console.log(intersection);
+Trivia notes:
+
+Everything created in Javascript is either a primitive or an object. Therefore, if it isn't one of those seven primitives, so it's an object
+
+// Object from Entries
+
+const keyValuePair = [
+  ['cow', 'Bo'],
+  ['pig', 'Heo'],
+];
+
+Object.fromEntries(keyValuePair); => result: // { cow: Bo pig: Heo }
+
+const map = new Map([
+  ['key 1', 'value 1'],
+  ['key 2', 'value 2'],
+]);
+
+// Using the constructor
+const map = new Map([
+  ['key 1', 'value 1'],
+  ['key 2', 'value 2'],
+]);
+// OR we can use the instance method, "set"
+const map = new Map();
+map.set('key 1', 'value 1');
+map.set('key 2', 'value 2');
+// RESULT
+// Map(2) {"key 1" => "value 1", "key 2" => "value 2"}
+
+Object.fromEntries(map) => // { key 1: "value 1", key 2: "value 2"}
+Make sure you only pass a key-value pair 
+
+Object.fromEntries vs Object.entries
+
+const object = { key1: 'value1', key2: 'value2' };
+const array = Object.entries(object);
+// [ ["key1", "value1"], ["key2", "value2"] ]
+Object.fromEntries(array);
+// { key1: 'value1', key2: 'value2' }
+
+const food = { meat: '🥩', broccoli: '🥦', carrot: '🥕' };
+// 😄 Yay, still in Object land
+const vegetarian = Object.fromEntries(
+  Object.entries(food).filter(([key, value]) => key !== 'meat'),
+);
+// { broccoli: '🥦', carrot: '🥕' }
 
 
 
