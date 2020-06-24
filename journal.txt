@@ -1,10 +1,10 @@
 JAVASCRIPT HANDBOOK
 
-// Get unique values of an array
+// GET UNIQUE VALUES OF AN ARRAY
 var j = [...new Set([1, 2, 3, 3])]
 >> [1, 2, 3]
 
-// find the diff element
+// FIND THE DIFF ELEMENT
 
 const elementDiff = (arr1, arr2) => {
 	const newAr = new Set(arr1)
@@ -17,7 +17,7 @@ console.log(justiceLeaque);
 Output -->
 [ 'Batman', 'Flash', 'Superman' ]
 
-// filter Boolean
+// FILTER BOOLEAN
 To Filter Falsy values (0, null, undefined, null, false)
 so this trick:
 >> myArray
@@ -28,13 +28,13 @@ so this trick:
     .filter(Boolean);
 	=> the boolean values will be blowed away
 
-// Create empty object
+// CREATE EMPTY OBJECT
 let dict = Object.create(null);
 
-// dict.__proto__ === "undefined"
-// No object properties exist until you 
+// DICT.__PROTO__ === "UNDEFINED"
+// NO OBJECT PROPERTIES EXIST UNTIL YOU 
 
-// Merge Objects
+// MERGE OBJECTS
 const person = { name: 'David Walsh', gender: 'Male' };
 const tools = { computer: 'Mac', editor: 'Atom' };
 const attributes = { handsomeness: 'Extreme', hair: 'Brown', eyes: 'Blue' };
@@ -51,7 +51,7 @@ Object {
   "name": "David Walsh",
 }
 */
-// Get query string parameter
+// GET QUERY STRING PARAMETER
 URLSearchParams
 var urlParams = new URLSearchParams(window.location.search);
 
@@ -61,7 +61,7 @@ console.log(urlParams.getAll('action')); // ["edit"]
 console.log(urlParams.toString()); // "?post=1234&action=edit"
 console.log(urlParams.append('active', '1')); // "?post=1234&action=edit&active=1"
 
-// Short-Circuit Evaluation
+// SHORT-CIRCUIT EVALUATION
 
 return (foo || []).length;
 
@@ -69,48 +69,48 @@ If the variable foo is truthy, it will be returned. Otherwise, the length of the
 
 return (this.state.data || 'Fetching Data');
 
-// Convert to String
+// CONVERT TO STRING
 
 const val = 1 + "";
 console.log(val); // Result: "1"
 console.log(typeof val); // Result: "string"
 
-// Quick Float to Integer
+// QUICK FLOAT TO INTEGER
 
 console.log(23.9 | 0);  // Result: 23
 console.log(-23.9 | 0); // Result: -23
 
-//Get the Last Item(s) in an Array
+//GET THE LAST ITEM(S) IN AN ARRAY
 
 let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-console.log(array.slice(-1)); // Result: [9]
-console.log(array.slice(-2)); // Result: [8, 9]
-console.log(array.slice(-3)); // Result: [7, 8, 9]
+CONSOLE.LOG(ARRAY.SLICE(-1)); // RESULT: [9]
+CONSOLE.LOG(ARRAY.SLICE(-2)); // RESULT: [8, 9]
+CONSOLE.LOG(ARRAY.SLICE(-3)); // RESULT: [7, 8, 9]
 
-// splice and splice and split
+// SPLICE AND SPLICE AND SPLIT
 
-splice is mutable method
+SPLICE IS MUTABLE METHOD
 arr = [1, 2, 3, 1]
 example: arr.splice(1, arr.length - 1)
 => arr: [2, 3, 1]
 add element syntax: array.splice(index, number of elements, element)
 delete element syntax: array.splice(index, number of elements)
 
-slice is immutable method
+SLICE IS IMMUTABLE METHOD
 arr  = [1, 2, 3, 1, 2]
 example: let newArr = arr.slice(0, 3)
 => newArr: [1, 2, 3], arr: [1, 2, 3, 1, 2]
 
-split 
-split is immutable method
-split is split string into substrings and return it as a array
+SPLIT 
+SPLIT IS IMMUTABLE METHOD
+SPLIT IS SPLIT STRING INTO SUBSTRINGS AND RETURN IT AS A ARRAy
 
-forEach , map
+FOREACH , MAP
 
-forEach is mutable method
-map is immutable method
+FOREACH IS MUTABLE METHOD
+MAP IS IMMUTABLE METHOD
 
-// delete element in array
+// DELETE ELEMENT IN ARRAY
 
 let index = arr.indexOf(val)
 
@@ -118,7 +118,7 @@ index > 1 && arr.splice(index, 1)
 
 const deviceName = person?.device?.name;
 
-// Merge Array 
+// MERGE ARRAY 
 
 const arr1 = [1, 2, 3]
 const arr2 = [4,5,6]
@@ -132,19 +132,19 @@ this.setState({ // set state }, () => {execute function here or this is call bac
 ._lodash
 ._pickBy(data, ._identity) => this is lodash'method is eleminate all falsy value in data
 
-// substrings
+// SUBSTRING
 array.substring(start, end) => (not include end index)
 example: req.file.path : public\uploads\b14c9d87c7455a6768ffea73c19d6e32
 let fileurl = req.file.path.replace(/\\/g, "/") => public/uploads/b14c9d87c7455a6768ffea73c19d6e32
 fileurl.substrings("public".length)
 
-// Cache
+// CACHE
 
-// Progressive Web App
+// PROGRESSIVE WEB APP
 
-// Pagination Summary
+// PAGINATION SUMMARY
 
-Checking Existent Properties in 2020
+CHECKING EXISTENT PROPERTIES IN 2020
 
 function getAppleExpirationDate(obj) {
   if (food.fruits && food.fruits.apple && food.fruits.apple.dates) {
@@ -152,13 +152,13 @@ function getAppleExpirationDate(obj) {
   }
 }
 
-==> Better way
+==> BETTER WAY
 
 function getAppleExpirationDate(obj) {
   return food?.fruits?.apple?.dates?.expired
 }
 
-// every
+// EVERY METHOD ARRAY
  const arr = [1,2,3,4,5,6,7,8,9,10]
  arr.every(n => n > 6) => false
  arr.every(n => n > 0) => true
@@ -254,9 +254,9 @@ var intersection = array1.filter(function(e) {
 console.log(intersection);
 Trivia notes:
 
-Everything created in Javascript is either a primitive or an object. Therefore, if it isn't one of those seven primitives, so it's an object
+EVERYTHING CREATED IN JAVASCRIPT IS EITHER A PRIMITIVE OR AN OBJECT. THEREFORE, IF IT ISN'T ONE OF THOSE SEVEN PRIMITIVES, SO IT'S AN OBJECT
 
-// Object from Entries
+// OBJECT FROM ENTRIES
 
 const keyValuePair = [
   ['cow', 'Bo'],
@@ -270,20 +270,20 @@ const map = new Map([
   ['key 2', 'value 2'],
 ]);
 
-// Using the constructor
+// USING THE CONSTRUCTOR
 const map = new Map([
   ['key 1', 'value 1'],
   ['key 2', 'value 2'],
 ]);
-// OR we can use the instance method, "set"
+// OR WE CAN USE THE INSTANCE METHOD, "SET"
 const map = new Map();
 map.set('key 1', 'value 1');
 map.set('key 2', 'value 2');
 // RESULT
 // Map(2) {"key 1" => "value 1", "key 2" => "value 2"}
 
-Object.fromEntries(map) => // { key 1: "value 1", key 2: "value 2"}
-Make sure you only pass a key-value pair 
+OBJECT.FROMENTRIES(MAP) => // { KEY 1: "VALUE 1", KEY 2: "VALUE 2"}
+MAKE SURE YOU ONLY PASS A KEY-VALUE PAIR 
 
 Object.fromEntries vs Object.entries
 
@@ -299,6 +299,37 @@ const vegetarian = Object.fromEntries(
   Object.entries(food).filter(([key, value]) => key !== 'meat'),
 );
 // { broccoli: '🥦', carrot: '🥕' }
+
+// NULLISH COALESCING
+
+false ?? "default string"
+=> result: false
+
+NaN ?? "default string"
+=> result: NaN
+
+0 ?? "default string"
+=> 0
+
+null ?? "default string"
+=> "default string"
+
+undefined ?? "default string"
+=> "default string" 
+
+String#matchAll
+
+const regexp = /[a-c]/g
+const str = 'ab'
+const iterator = str.matchAll(regexp)
+
+Array.from(iterator, result => console.log(result))
+
+=> ["a", index: 0, input: "abc", group: undefined ]
+
+=> ["b", index: 1, input: "abc", group: undefined ]
+
+
 
 
 
