@@ -329,7 +329,30 @@ Array.from(iterator, result => console.log(result))
 
 => ["b", index: 1, input: "abc", group: undefined ]
 
+// 
+<input type="checkbox" id="check_me" ref="checked_now" />
 
+GET VALUE OF THIS INPUT FROM ANOTHER DOM
+
+example
+
+let a = this.refs.checked_now.checked (this.refs.checked_now.value)
+
+GET VALUE THROUGH GETELEMENTBYID
+
+<input type="text" id="text_me" ref="text-box" />
+
+let text = document.getElementbyID("text_me").value
+
+UPDATE VALUE THROUGH GETELEMENTBYID
+
+<input type="checkbox" id="check_me" ref="checked_now" />
+
+document.getElementbyID("check_me").checked = true 
+
+OR
+
+document.getElementbyID("check_me").checked = false
 
 
 
