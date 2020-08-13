@@ -374,5 +374,22 @@ for (let i = 0; i < 5; i++) {
 
 => result is 0, 1, 2, 3, 4
 
+JavaScript currently has eight data types:
+
+number
+bigint
+string
+boolean
+null
+undefined
+object
+symbol
+
+Querying the DOM
+
+document.getElementsByClassName('class name')
+document.querySelectorAll('.class name')
+
+
 
 
