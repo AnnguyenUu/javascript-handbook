@@ -390,6 +390,21 @@ Querying the DOM
 document.getElementsByClassName('class name')
 document.querySelectorAll('.class name')
 
+// CLOSURE Example:  (continue)
+
+function showName (first, last) {
+    let name = "my name is ";
+    let asd = 'asd'
+    function fullName() { ==> this is inner function
+        console.log(asd); ==> variable from outer function
+        console.log(name + first + " " + last) 
+    }
+    return fullName()
+}
+
+showName('an', 'nguyen')
+
+
 
 
 
