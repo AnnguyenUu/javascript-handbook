@@ -404,6 +404,62 @@ function showName (first, last) {
 
 showName('an', 'nguyen')
 
+ASYNCHRONOUS
+
+An asynchronous model allows multiple things to happen at the same time. When you start an action, your program continues to run.
+When the action finishes, the program is informed and gets access to the result (for example, the data read from disk).
+
+DIFFERENCE BETWEEN PROMISE AND ASYNC/AWAIT
+
+ASYNC/AWAIT makes your code leaner and fresher
+
+PROMISE
+const makeRequest = () => {
+  return getJSON()
+    .then(data => {
+      if (data.needsAnotherRequest) {
+        return makeAnotherRequest(data)
+          .then(moreData => {
+            console.log(moreData)
+            return moreData
+          })
+      } else {
+        console.log(data)
+        return data
+      }
+    })
+} ===> have 6 level nested together => look like hell
+
+ASYNC/AWAIT
+
+const makeRequest = async () => {
+  const data = await getJSON()
+  if (data.needsAnotherRequest) {
+    const moreData = await makeAnotherRequest(data);
+    console.log(moreData)
+    return moreData
+  } else {
+    console.log(data)
+    return data    
+  }
+} ==> cleaner and easy to debug
+
+EASY to debug with ASYNC/AWAIT
+
+can't set break point into promise function
+
+example
+
+const makeExample = () => {
+	return allPromiseApi()
+		.then(() => allPromiseApi)
+		.then(() => allPromiseApi)
+		.then(() => allPromiseApi)
+		.then(() => allPromiseApi)
+} ==> debug is become impossible
+
+Break point with ASYNC/AWAIT
+
 
 
 
