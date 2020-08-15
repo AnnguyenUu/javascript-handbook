@@ -458,7 +458,28 @@ const makeExample = () => {
 		.then(() => allPromiseApi)
 } ==> debug is become impossible
 
-Break point with ASYNC/AWAIT
+Break point with ASYNC/AWAIT too easy
+
+DATA STUCTURE IN JAVASCRIPT
+
+Queues
+=> FIFO: First In First Out
+
+Stack
+=> FILO: First In Last Out
+
+Trees
+
+Graphs
+
+Hash Map
+
+REDUX
+
+Data flow of application is too complicated
+
+Use for Component interact each other, not parent/child Component
+
 
 
 
