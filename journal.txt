@@ -504,5 +504,28 @@ COOKIE
 - Cookies can be made secure by setting the httpOnly flag as true for that cookie. This prevents client-side access to that cookie.
 - Can read, write, delete with document.cookie
 
+WHAT’S THE DIFFERENCE BETWEEN UNDEFINED AND NULL?
+
+undefined is the value for undeclared variables
+
+null equals undefined when compared with the == operator . => this is all falsy
+They aren’t equal when we compare them with the === operator since they’re of different types.
+
+STATE 
+
+The state is a data structure that starts with a default value when a Component mounts. It may be mutated across time, mostly as a result of user events
+
+PROPS
+
+Props (short for properties) are a Component’s configuration. Props are how components talk to each other.
+They are received from above component and immutable as far as the Component receiving them is concerned.
+Props do not have to just be data — callback functions may be passed in as props.
+
+PROPS and STATE do similar things but are used in different ways. The majority of our components will probably be stateless. 
+Props are used to pass data from parent to child or by the component itself.
+They are immutable and thus will not be changed. State is used for mutable data, or data that will change.
+This is particularly useful for user input.
+
+
 
 
