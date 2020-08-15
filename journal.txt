@@ -480,8 +480,29 @@ Data flow of application is too complicated
 
 Use for Component interact each other, not parent/child Component
 
+LOCAL STORAGE VS SESSION STORAGE VS COOKIE
 
+LOCAL STORAGE
 
+- LocalStorage is a way to store data on the client’s computer.
+- It allows the saving of key/value pairs in a web browser and it stores data with no expiration date.
+- However, the user has the ability to clear the browser data/cache to erase all localStorage data.
+- Data is never transferred to the server
+
+SESSION STORAGE
+
+- Stores data only for a session, meaning that the data is stored until the browser (or tab) is closed
+- Data is never transferred to the server
+- Can only be read on client-side
+- Storage limit is about 5-10MB
+- Opening multiple tabs/windows with the same URL creates sessionStorage for each tab/window
+
+COOKIE
+
+- Cookies are primarily for server-side reading (can also be read on client-side), localStorage and sessionStorage can only be read on client-side.
+- Size must be less than 4KB.
+- Cookies can be made secure by setting the httpOnly flag as true for that cookie. This prevents client-side access to that cookie.
+- Can read, write, delete with document.cookie
 
 
 
