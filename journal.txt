@@ -526,6 +526,47 @@ Props are used to pass data from parent to child or by the component itself.
 They are immutable and thus will not be changed. State is used for mutable data, or data that will change.
 This is particularly useful for user input.
 
+maxItemOfArray
+
+const maxItemOfArray = (arr) => […arr].sort((a, b) => b — a).slice(0, 1)[0];
+let maxItem = maxItemOfArray([3, 5, 12, 5]);
+
+areAllEqual
+
+const areAllEqual = array => array.every(item => item === array[0]);
+let check1 = areAllEqual([3, 5, 2]); // false
+let check2 = allEqual([3, 3, 3]); // true
+
+averageOf
+
+const averageOf = (…numbers) => numbers.reduce((a, b) => a + b, 0) / numbers.length;
+let average = averageOf(5, 2, 4, 7); // 4.5
+
+findAndReplace
+
+const findAndReplace = (string, wordToFind, wordToReplace) => string.split(wordToFind).join(wordToReplace);
+let result = findAndReplace(‘I like banana’, ‘banana’, ‘apple’); // I like apple
+
+
+
+
+removeDuplicatedValues
+
+const removeDuplicatedValues = array => […new Set(array)];
+let arr = removeDuplicatedValues([5, 3, 2, 5, 6, 1, 1, 6]); // [5, 3, 2, 6, 1]
+
+getTimeFromDate
+
+const getTimeFromDate = date => date.toTimeString().slice(0, 8);
+let time = getTimeFromDate(new Date()); // 09:46:08
+
+capitalizeAllWords
+
+const capitalizeAllWords = str => str.replace(/\b[a-z]/g, char => char.toUpperCase());
+let str = capitalizeAllWords(‘i love reading book’); // I Love Reading Book
+
+
+
 
 
 
