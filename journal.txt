@@ -567,6 +567,122 @@ let str = capitalizeAllWords(‘i love reading book’); // I Love Reading Book
 
 LODASH
 
+	1. _.assign
+
+	var foo = { a: "a property" };
+	var bar = { b: 4, c: "an other property" }
+
+	var result = _.assign({ a: "an old property" }, foo, bar);
+	// result => { a: 'a property', b: 4, c: 'an other property' }
+
+	2. _.times
+
+	function getRandomInteger() {
+		return Math.round(Math.random() * 100);
+	}
+
+	var result = _.times(5, getRandomNumber);
+	// result => [64, 70, 29, 10, 23]
+
+	3. _.debounce
+
+	function validateEmail() {
+		// Validate email here and show error message if not valid
+	}
+
+	var emailInput = document.getElementById("email-field");
+	emailInput.addEventListener("keyup", _.debounce(validateEmail, 500));
+
+	4. _.find
+
+
+	var users = [
+	  { firstName: "John", lastName: "Doe", age: 28, gender: "male" },
+	  { firstName: "Jane", lastName: "Doe", age: 5, gender: "female" },
+	  { firstName: "Jim", lastName: "Carrey", age: 54, gender: "male" },
+	  { firstName: "Kate", lastName: "Winslet", age: 40, gender: "female" }
+	];
+
+	var user = _.find(users, { lastName: "Doe", gender: "male" });
+	// user -> { firstName: "John", lastName: "Doe", age: 28, gender: "male" }
+
+	var underAgeUser = _.find(users, function(user) {
+		return user.age < 18;
+	});
+	// underAgeUser -> { firstName: "Jane", lastName: "Doe", age: 5, gender: "female" }
+
+	5. _.get and ._set
+		
+	var bar = { foo: { key: "foo" } };
+	_.set(bar, "foo.items[0]", "An item");
+	// bar => { foo: { key: "foo", items: ["An item"] } }
+	var name = _.get(bar, "name", "John Doe");
+	// name => John Doe
+	
+	6. _.deburr
+	
+	_.deburr("déjà vu");
+	// -> deja vu
+	_.deburr("Juan José");
+	// -> Juan Jose	
+	
+	7. _.keyBy
+	
+	var posts = [
+    { id: "1abc", title: "First blog post", content: "..." },
+    { id: "2abc", title: "Second blog post", content: "..." },
+    // more blog posts
+    { id: "34abc", title: "The blog post we want", content: "..." }
+    // even more blog posts
+	];
+
+	posts = _.keyBy(posts, "id");
+
+	var post = posts["34abc"]
+	// post -> { id: "34abc", title: "The blog post we want", content: "..." }
+	
+	8. _.reduce
+	
+	var users = [
+    { name: "John", age: 30 },
+    { name: "Jane", age: 28 },
+    { name: "Bill", age: 65 },
+    { name: "Emily", age: 17 },
+    { name: "Jack", age: 30 }
+	]
+
+	var reducedUsers = _.reduce(users, function (result, user) {
+		if(user.age >= 18 && user.age <= 59) {
+			(result[user.age] || (result[user.age] = [])).push(user);
+		}
+	  
+		return result;
+	}, {});
+
+	// reducedUsers -> { 
+	//     28: [{ name: "Jane", age: 28 }], 
+	//     30: [{ name: "John", age: 30 }, { name: "Jack", age: 30 }] 
+// }
+	
+	9. _.cloneDeep
+	
+	var original = { foo: "bar" };
+	var copy = original;
+	copy.foo = "new value";
+	// copy -> { foo: "new value" } Yeah!
+	// original -> { foo: "new value" } Oops!
+
+	var original = { foo: "bar" };
+	var copy = _.cloneDeep(original);
+	copy.foo = "new value";
+	// copy -> { foo: "new value" } Yeah!
+	// original -> { foo: "bar" } Yeah!
+	
+	10 _. sortedUniq
+		
+	var sortedArray = [1, 1, 2, 3, 3, 3, 5, 8, 8];
+	var result = _.sortedUniq(sortedArray);
+	// -> [1, 2, 3, 5, 8]
 
 
 
