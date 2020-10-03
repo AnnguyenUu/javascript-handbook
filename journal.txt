@@ -694,6 +694,40 @@ function myFavColor(color) {
 	console.log(`the color ${color} is my favorite color`)
 }
 
+CONVERT Falsy VALUE
+
+!!null => false
+!!undefined => false
+!!NaN => false
+!! "      " => false
+
+REACT COMPONENT LIFECYCLE
+
+constructor => getDerivedStateFromProps => render => componentDidMount => ***lifeCycle
+
+***lifeCycle => getDerivedStateFromProps(nextProps, prevState) (only called when receiving new props return the new state) => *
+
+* => shouldComponentUpdate => componentWillUnMount => render => getSnapshotBeforeUpdate => componentDidUpdate => lifeCycle***
+
+ LIFECYCLE                       ||                   HOOKS
+ 
+ componentDidMount() {      			useEffect(() => { // called only once })
+	// component mounted
+ }
+ 
+ componentWillUnMount() {				useEffect(() => { // it will be called before unmounting return () => {} }, [])		
+	// component unmounted
+ }
+ 
+ componentDidUpdate() {                  useEffect(() => { // called every time }) || useEffect(() => { // dependencies}, [dependencies])
+	// updated values
+ }
+ 
+ shouldComponentUpdate() {               // use React momo
+	// should i render again ?
+ }
+ 
+ 
 
 
 
