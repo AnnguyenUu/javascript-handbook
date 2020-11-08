@@ -727,6 +727,45 @@ constructor => getDerivedStateFromProps => render => componentDidMount => ***lif
 	// should i render again ?
  }
  
+ USING INDEXING INSTEAD of SWITCH...CASE
+ 
+ const breeds = {
+	'dog': ['Husky', 'Poodle', 'Shiba'],
+	'cat': ['Korat', 'Donskoy'],
+	'bird': ['Parakeets', 'Canaries']
+ }
+ 
+ SWITCH ...CASE
+ EX:
+	const getBreeds = pet => {
+		switch(pet) {
+			case 'dog':
+				return ['Husky', 'Poodle', 'Shiba'];
+			case 'cat':
+				return ['Korat', 'Donskoy'];
+			case 'bird':
+				return ['Parakeets', 'Canaries'];
+			default:
+				return [];
+		}
+ };
+ 
+ INDEXING:
+ EX: 
+	const getBreeds = pet => {
+		return breeds[pet] || [];
+	}
+	
+	let dogBreeds = getBreeds('cat'); // ['Korat', 'Donskoy']
+ 
+
+const moment = require('moment');
+let b = "29/10/2020 02:28"
+let c = moment(b, 'DD/MM/YYYY HH:mm').format("YYYY-MM-DD HH:mm:ss")
+console.log(c) ==> 2020-10-29 02:28:00
+
+
+ 
  
 
 
