@@ -711,7 +711,7 @@ constructor => getDerivedStateFromProps => render => componentDidMount => ***lif
 
  LIFECYCLE                       ||                   HOOKS
  
- componentDidMount() {      			useEffect(() => { // called only once })
+ componentDidMount() {      			useEffect(() => { // called only once }, [])
 	// component mounted
  }
  
