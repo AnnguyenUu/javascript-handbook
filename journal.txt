@@ -805,6 +805,50 @@ func();
 
 [undefined, "", null].includes(variable) : if variable = undefined or "" or null => is all true 
 
+let num = 15;
+let s = num + ""; // number to string
+let n = +s; // string to number
 
+let filledArray = new Array(arraysize).fill(null).map(()=> ({'hello' : 'goodbye'}));
 
+Dynamic properties in obj
 
+let dynamic = "value";
+
+let user = {
+	id: 1,
+	[dynamic]: "other value"
+}
+
+Array to Object
+
+let arr = ["value1", "value2", "value3"]; 
+let arrObject = {...arr}; 
+
+Object to Array
+
+let number = {
+  one: 1, 
+  two: 2,
+};
+let key = Object.keys(numbers); // key = [ 'one', 'two' ]
+let value = Object.values(numbers);  // value = [ 1, 2 ]
+let entry = Object.entries(numbers); // entry = [['one' : 1], ['two' : 2]]
+
+Check if value is an array
+
+const arr = [1, 2, 3]
+console.log(typeof arr); // object
+console.log(Array.isArray(arr)) // true
+
+False values => false, 0, ""(empty string), null, undefined, &NaN.
+
+Truthy values => "Values", "0", {}(empty object), &[](empty array).
+
+Find max and min value in array
+
+const priceHistory = [400, 500, 300, 660, 910]
+
+const minimumPrice = Math.min(...priceHistory) // 300
+
+const maximumPrice = Math.max(...priceHistory) // 910
