@@ -852,3 +852,19 @@ const priceHistory = [400, 500, 300, 660, 910]
 const minimumPrice = Math.min(...priceHistory) // 300
 
 const maximumPrice = Math.max(...priceHistory) // 910
+
+SUPER HACKY
+
+const randomStuff = [5, null, false, -3, '65'];
+
+/* Convert to string */
+randomStuff.map(String); // ["5", "null", "false", "-3", "65"]
+
+/* Convert to number */
+randomStuff.map(Number); // [5, 0, 0, -3, 65]
+
+/* Filter out falsy values */
+randomStuff.filter(Boolean); // [5, -3, "65"]
+
+/* Falsy check */
+!randomStuff.every(Boolean); // true
