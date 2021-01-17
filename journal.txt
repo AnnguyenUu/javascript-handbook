@@ -868,3 +868,74 @@ randomStuff.filter(Boolean); // [5, -3, "65"]
 
 /* Falsy check */
 !randomStuff.every(Boolean); // true
+
+COPY A STRING MULTIPLE TIMES
+
+// Concatenate "ha" 3 times.
+const laughing = "ha".repeat(3);
+console.log(laughing); // "hahaha"
+
+// Concatenate "1" 8 times.
+const eightBits = "1".repeat(8);
+console.log(eightBits ); // "11111111"
+
+ PAD A STRING TO A SPECIFIC LENGTH
+ 
+ // Add "0" to the beginning until the string has a length of 8.
+const eightBits = "001".padStart(8, "0");
+console.log(eightBits); // "00000001"
+
+// Add "*" to the end until the string has a length of 5.
+const anonymizedCode = "34".padEnd(5, "*");
+console.log(anonymizedCode); // "34***"
+
+SPLIT A STRING INTO AN ARRAY OF CHARACTERS
+
+const word = "apple";
+const characters = [...word];
+console.log(characters); // ["a", "p", "p", "l", "e"]
+
+COUNT CHARACTERS IN A STRING
+
+const word = "𩸽";
+const characters = [...word];
+console.log(characters.length) // 1;
+
+CAPITALIZE (UPPERCASE) THE FIRST LETTER IN A STRING
+
+// This shows an alternative way
+let word = "apple";
+
+// Use spread operator (`...`) to split into characters.
+// Transform first character and join array.
+const characters = [...word];
+characters[0] = characters[0].toUpperCase();
+word = characters.join("");
+
+console.log(word); // "Apple"
+
+SPLIT A STRING ON MULTIPLE SEPARATORS
+
+// Let's split on comma (,) and semicolon (;).
+const list = "apples,bananas;cherries"
+const fruits = list.split(/[,;]/);
+console.log(fruits); // ["apples", "bananas", "cherries"]
+
+CHECK IF A STRING STARTS OR ENDS WITH A SPECIFIC SEQUENCE
+
+const text = "Hello, world! My name is Kai!"
+
+console.log(text.startsWith("Hello")); // true
+
+console.log(text.endsWith("world")); // false
+
+Replace All Occurrences of a String
+
+const text = "I like apples. You like apples."
+
+console.log(text.replace(/apples/g, "bananas"));
+// "I like bananas. You like bananas."
+
+console.log(text.replaceAll("apples", "bananas"));
+// "I like bananas. You like bananas."
+
