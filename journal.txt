@@ -939,3 +939,170 @@ console.log(text.replace(/apples/g, "bananas"));
 console.log(text.replaceAll("apples", "bananas"));
 // "I like bananas. You like bananas."
 
+USE MEMO React Hooks
+
+const memoizedValue = useMemo(functionThatReturnsValue, 
+                                   arrayDepencies)
+
+MERGE/FLATTEN YOUR ARRAYS IN ARRAYS
+
+const arrays = [[10], 50, [100, [2000, 3000, [40000]]]];
+arrays.flat(Infinity);
+// [ 10, 50, 100, 2000, 3000, 40000 ]
+
+PREVENTING YOUR CODE CRASH
+
+const found = [{ name: "Alex" }].find(i => i.name === 'Jim') || {};
+console.log(found.name);
+// undefined
+
+MASK IT NICELY
+
+const password = "hackme";
+password.substr(-3).padStart(password.length, "*");
+// ***kme
+
+import { clearArray } from './helpers';
+
+const collection = [[], {}, "", null, undefined, NaN, "wee"];
+const cleanCollection = collection.filter(clearArray);
+//  ["wee"]
+
+GENERATE A LIST WITH RANDOM NUMBERS
+
+Array.from({ length: 1000 }, Math.random)
+
+GENERATE A LIST WITH NUMBERS
+
+Array.from({ length: 1000 }, (v, i) => i)
+// [0, 1, 2, 3, 4, 5, 6....999]
+
+const isValidURL = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+isValidURL("https://dev.to");
+// true
+
+isValidURL("https//invalidto");
+// false
+
+GENERATE PATH WITH QUERY STRING
+
+const generatePathQuery = (path, obj) =>
+  path +
+  Object.entries(obj)
+    .reduce((total, [k, v]) => (total += `${k}=${encodeURIComponent(v)}&`), "?")
+    .slice(0, -1);
+
+generatePathQuery("/user", { name: "Orkhan", age: 30 }); 
+
+// "/user?name=Orkhan&age=30"
+
+const getQueryParams = url =>
+  url.match(/([^?=&]+)(=([^&]*))/g).reduce((total, crr) => {
+    const [key, value] = crr.split("=");
+    total[key] = value;
+    return total;
+  }, {});
+
+getQueryParams("/user?name=Orkhan&age=30");
+// { name: 'Orkhan', age: '30' }
+TRY CATCH 
+try {
+  functionSomeThing();
+} catch (error) {
+  // Hiện thị error lên realtime
+  console.error(error);
+  // Nhắc nhở người dùng trên giao diện nếu cần
+  notifyUserOfError(error);
+  // Save lại lỗi, để xem log mỗi ngày khi ngủ dậy.
+  reportErrorToService(error);
+
+}
+
+JAVASCRIPT DOES THIS BECAUSE FOREACH IS NOT PROMISE-AWARE. IT CANNOT SUPPORT ASYNC AND AWAIT. YOU CANNOT USE AWAIT IN FOREACH.
+
+AWAIT WITH MAP
+
+const mapLoop = async _ => {
+  console.log('Start')
+
+  const promises = fruitsToGet.map(async fruit => {
+    const numFruit = await getNumFruit(fruit)
+    return numFruit
+  })
+
+  const numFruits = await Promise.all(promises)
+  console.log(numFruits)
+
+  console.log('End')
+}
+
+const mapLoop = async _ => {
+  // ...
+  const promises = fruitsToGet.map(async fruit => {
+    const numFruit = await getNumFruit(fruit)
+    // Adds onn fruits before returning
+    return numFruit + 100
+  })
+  // ...
+}
+
+AWAIT WITH FILTER
+
+There are three steps to use await and filter properly:
+	1 - Use map to return an array promises
+	2 - await the array of promises
+	3 - filter the resolved values
+	
+const filterLoop = async _ => {
+  console.log('Start')
+
+  const promises = await fruitsToGet.map(fruit => getNumFruit(fruit))
+  const numFruits = await Promise.all(promises)
+
+  const moreThan20 = fruitsToGet.filter((fruit, index) => {
+    const numFruit = numFruits[index]
+    return numFruit > 20
+  })
+
+  console.log(moreThan20)
+  console.log('End')
+}
+
+AWAIT WITH REDUCE
+
+const reduceLoop = async _ => {
+  console.log('Start')
+
+  const promises = fruitsToGet.map(getNumFruit)
+  const numFruits = await Promise.all(promises)
+  const sum = numFruits.reduce((sum, fruit) => sum + fruit)
+
+  console.log(sum)
+  console.log('End')
+}
+
+NOTE: getNumFruit is function take a long time
+
+REPLICAN MULTIPLE ARRAY FROM ONE ARRAY-OBJECT
+
+let [pick, assign, reason, categories] = statisticData.reduce(
+      (accum, val) => {
+          accum[0].push(val.totalBillReceived ?? 0);
+          accum[1].push(val.totalBillAssign ?? 0);
+          accum[2].push(val.totalBillReason ?? 0);
+          accum[3].push(val.bpartnerName || "");
+          return accum;
+      },
+      [ [], [], [], [] ]
+  );
+
+
+
