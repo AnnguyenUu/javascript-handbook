@@ -4,6 +4,14 @@ JAVASCRIPT HANDBOOK
 var j = [...new Set([1, 2, 3, 3])]
 >> [1, 2, 3]
 
+// Create New Array 
+
+// Alternative declaration
+names = new Array('Mike', 'Paul', 'John')
+
+// More efficiently store in a array
+names = ['Mike', 'Paul', 'John']
+
 // FIND THE DIFF ELEMENT
 
 const elementDiff = (arr1, arr2) => {
