@@ -1121,3 +1121,46 @@ export const useIsMount = () => {
   return isMountRef.current;
 
 
+PROMISE ALLSETTLED
+
+Promise.allSettled([
+    Promise.reject('✗'),
+    Promise.reject('✗'),
+    Promise.resolve('✓'),
+    Promise.reject('✗'),
+]).then(function(value) {
+    console.log(`You win at life`, value)
+})
+
+=> result : You win at life,
+[
+    {
+        status:"rejected",
+        reason:"✗"
+    },
+    {
+        status:"rejected",
+        reason:"✗"
+    },
+    {
+        status:"fulfilled",
+        value:"✓"
+    },
+    {
+        status:"rejected",
+        reason:"✗"
+    }
+]
+let dogs = [
+    { name: ‘Rio’, age: 2 },
+    { name: ‘Mac’, age: 3 },
+    { name: ‘Bruno’, age: 5 },
+    { name: ‘Jucas’, age: 10 },
+    { name: ‘Furr’, age: 8 },
+    { name: ‘Blu’, age: 7 },
+]
+
+
+let dogsNames = Array.from(dogs, ({name}) => name);
+console.log(dogsNames); // returns [“Rio”, “Mac”, “Bruno”, “Jucas”, “Furr”, “Blu”]
+
