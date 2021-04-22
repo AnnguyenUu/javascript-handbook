@@ -1164,3 +1164,162 @@ let dogs = [
 let dogsNames = Array.from(dogs, ({name}) => name);
 console.log(dogsNames); // returns [“Rio”, “Mac”, “Bruno”, “Jucas”, “Furr”, “Blu”]
 
+Get the Last Items in an ARRAY
+let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(array.slice(-1)); // Result: [9]
+console.log(array.slice(-2)); // Result: [8, 9]
+console.log(array.slice(-3)); // Result: [7, 8, 9]
+
+Quick Rounding
+
+console.log(23.9 | 0);  // Result: 23
+console.log(-23.9 | 0); // Result: -23
+
+
+Promise.allSettled([
+    Promise.reject('✗'),
+    Promise.reject('✗'),
+    Promise.resolve('✓'),
+    Promise.reject('✗'),
+]).then(function(value) {
+    console.log(`You win at life`, value)
+})
+
+Output:
+
+You win at life,
+[
+    {
+        status:"rejected",
+        reason:"✗"
+    },
+    {
+        status:"rejected",
+        reason:"✗"
+    },
+    {
+        status:"fulfilled",
+        value:"✓"
+    },
+    {
+        status:"rejected",
+        reason:"✗"
+    }
+]
+
+const items = ['a', 'b', 'c', 'd', 'e', 'f']
+console.log(items.fill('--NEW-ITEM--', 2, 3))
+
+Cú pháp: arr.fill(value[, start[, end]])Với: 
+
+
+
+value: Là giá trị cần fill. 
+start (Optional): Vị trí bắt đầu fill, mặc định là 0 
+end (Optional): Vị trí kết thúc fill, mặc định là this.length
+
+ARRAY findAndRemove() ES6
+const list = [
+    {id: 1,"name":"anonystick.com"},
+    {id: 2,"name":"medium.com"},
+    {id: 3,"name":"facebook.com"}
+]
+console.log(list.findAndRemove(2, "id")); //remove id = 2
+
+ARRAY getIndexes()
+
+const findIndex = [1,2,3,4,3,6,8,3]
+console.log(findIndex.getIndexes(3))
+
+Output: [2, 4, 7]
+
+const list = [{name: "anonystick"}, {name: "facebook"}, {name: "anonystick"}]
+console.log(list.getIndexes(obj => obj.name === 'anonystick'))
+
+Output: [0, 2]
+
+Array.distinct()
+
+const array = [1, 1, 1, 3, 3, 2, 2]
+console.log(array.distinct())
+Output: [1, 3, 2]
+
+const arr = [
+ { id: 1, name: "king" },
+ { id: 2, name: "master" },
+ { id: 3, name: "lisa" },
+ { id: 4, name: "ion" },
+ { id: 5, name: "jim" },
+ { id: 6, name: "gowtham" },
+ { id: 1, name: "jam" },
+ { id: 1, name: "lol" },
+ { id: 2, name: "kwick" },
+ { id: 3, name: "april" },
+ { id: 7, name: "sss" },
+ { id: 8, name: "brace" },
+ { id: 8, name: "peiter" },
+ { id: 5, name: "hey" },
+ { id: 6, name: "mkl" },
+ { id: 9, name: "melast" },
+ { id: 9, name: "imlast" },
+ { id: 10, name: "glow" }
+]
+console.log(arr.distinct(obj => obj.id))
+
+const arr = [
+ { id: 1, name: "king" },
+ { id: 2, name: "master" },
+ { id: 3, name: "lisa" },
+ { id: 4, name: "ion" },
+ { id: 5, name: "jim" },
+ { id: 6, name: "gowtham" },
+ { id: 1, name: "jam" },
+ { id: 1, name: "lol" },
+ { id: 2, name: "kwick" },
+ { id: 3, name: "april" },
+ { id: 7, name: "sss" },
+ { id: 8, name: "brace" },
+ { id: 8, name: "peiter" },
+ { id: 5, name: "hey" },
+ { id: 6, name: "mkl" },
+ { id: 9, name: "melast" },
+ { id: 9, name: "imlast" },
+ { id: 10, name: "glow" }
+]
+
+ARRAY limit()
+
+console.log(JSON.stringify(arr.limit(2))) ;//get giới hạn 2 records
+
+Output
+
+[
+    {"id":1,"name":"king"},
+    {"id":2,"name":"master"}
+]
+
+ARRAY skip()
+
+console.log(JSON.stringify(arr.skip(2))) ;//bỏ qua 2 records đầu tiên
+
+[
+    {"id":3,"name":"lisa"},
+    {"id":4,"name":"ion"},
+    {"id":5,"name":"jim"},
+    {"id":6,"name":"gowtham"},
+    {"id":1,"name":"jam"},
+    {"id":1,"name":"lol"},
+    {"id":2,"name":"kwick"},
+    {"id":3,"name":"april"},
+    {"id":7,"name":"sss"},
+    {"id":8,"name":"brace"},
+    {"id":8,"name":"peiter"},
+    {"id":5,"name":"hey"},
+    {"id":6,"name":"mkl"},
+    {"id":9,"name":"melast"},
+    {"id":9,"name":"imlast"},
+    {"id":10,"name":"glow"}
+]
+
+
+
