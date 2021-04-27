@@ -1321,5 +1321,92 @@ console.log(JSON.stringify(arr.skip(2))) ;//bỏ qua 2 records đầu tiên
     {"id":10,"name":"glow"}
 ]
 
+let mycar = {make: 'Honda', model: 'Accord', year: 1998}
+'make' in mycar  // returns true
+'model' in mycar // returns true
+
+const byteSize = str => new Blob([str]).size;
+
+byteSize('😀'); // 4
+byteSize('Hello World'); // 11
+
+const capitalize = ([first, ...rest]) =>
+  first.toUpperCase() + rest.join('');
+  
+capitalize('fooBar'); // 'FooBar'
+capitalize('fooBar', true); // 'Foobar'
+
+const capitalizeEveryWord = str => str.replace(/\b[a-z]/g, char => char.toUpperCase());
+
+capitalizeEveryWord('hello world!'); // 'Hello World!'
+
+// REQUEST TIME OUT
+const timeout = (prom, time) =>
+	Promise.race([prom, new Promise((_r, rej) => setTimeout(rej, time))]);
+// resolves in 500 ms
+const fn = async () => {
+	await new Promise((res) => setTimeout(res, 500));
+	return "p2";
+}
+
+// finishes before the timeout
+const result = await timeout(fn(), 1000);
+// result = p2
+
+// timeouts in 100 ms
+await timeout(fn(), 100);
+// error
+// END
+
+// EXAMPLE HIGH ORDER Function
+
+var grades = [
+    {name: 'John', grade: 8, sex: 'M'},
+    {name: 'Sarah', grade: 12, sex: 'F'},
+    {name: 'Bob', grade: 16, sex: 'M'},
+    {name: 'Johnny', grade: 2, sex: 'M'},
+    {name: 'Ethan', grade: 4, sex: 'M'},
+    {name: 'Paula', grade: 18, sex: 'F'},
+    {name: 'Donald', grade: 5, sex: 'M'},
+    {name: 'Jennifer', grade: 13, sex: 'F'},
+    {name: 'Courtney', grade: 15, sex: 'F'},
+    {name: 'Jane', grade: 9, sex: 'F'}
+]
+
+let isBoy = student => student.sex === 'M'
+
+let isGirl = student => student.sex === 'F'
+
+let getBoys = grades => (
+    grades.filter(isBoy)
+)
+
+let getGirls = grades => (
+    grades.filter(isGirl)
+)
+
+let average = grades => (
+    grades.reduce((acc, curr) => (
+        acc + curr.grade
+    ), 0) / grades.length
+)
+
+let maxGrade = grades => (
+    Math.max(...grades.map(student => student.grade))
+)
+
+let minGrade = grades => (
+    Math.min(...grades.map(student => student.grade))
+)
+
+let classroomAverage = average(grades) // 10.2
+let boysAverage = average(getBoys(grades)) // 7
+let girlsAverage = average(getGirls(grades)) // 13.4
+let highestGrade = maxGrade(grades) // 18
+let lowestGrade = minGrade(grades) // 2
+let highestBoysGrade = maxGrade(getBoys(grades)) // 16
+let lowestBoysGrade = minGrade(getBoys(grades)) // 2
+let highestGirlsGrade = maxGrade(getGirls(grades)) // 18
+let lowestGirlsGrade = minGrade(getGirls(grades)) // 9
 
 
