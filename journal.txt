@@ -1425,3 +1425,30 @@ fetch(myRequest).then(function(response) {
   .finally(function() { isLoading = false; });
 
  rm -rf node_modules/
+ arr = [1, 2, 3, 4, 6]
+arr.splice(4, 0, 5)
+ => arr = [0, 1, 2, 3, 4, 5, 6];
+ 
+ let cr7 = {
+    job: 'football',
+    age: 36,
+    hobbies: ['massage', 'game'],
+    clubs: ['mu', 'juve','real'],
+    height: '188cm',
+    childs: 5
+};
+
+let { age, childs, ...replicant } = cr7;
+=> replicant = cr7 = {
+    job: 'football',
+    hobbies: ['massage', 'game'],
+    clubs: ['mu', 'juve','real'],
+    height: '188cm',
+};
+ 
+ path multiple url issue => package.json : homepage:"",
+ 
+ match();
+ 
+const quote =  "If you don't know where you are going, any road will get you there.";
+console.log(quote.match(/you/g)) // [ "you", "you", "you" ];
