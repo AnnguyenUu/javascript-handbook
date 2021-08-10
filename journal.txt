@@ -1452,3 +1452,22 @@ let { age, childs, ...replicant } = cr7;
  
 const quote =  "If you don't know where you are going, any road will get you there.";
 console.log(quote.match(/you/g)) // [ "you", "you", "you" ];
+
+Regx phone number
+/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
+
+Empty headers request:
+axios.get("http://api.com", {
+        headers:{ Authorization:""}
+});
+
+const array  = [5,4,7,8,9,2];
+Sum
+array.reduce((a,b) => a+b);
+// Output: 35
+Max
+array.reduce((a,b) => a>b?a:b);
+// Output: 9
+Min
+array.reduce((a,b) => a<b?a:b);
+// Output: 2
