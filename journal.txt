@@ -1460,7 +1460,18 @@ Empty headers request:
 axios.get("http://api.com", {
         headers:{ Authorization:""}
 });
-
+var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': '' 
+}
+ axios({
+  method: 'post', //you can set what request you want to be
+  url: 'https://example.com/request',
+  data: {id: varID},
+  headers: {
+    Authorization: ''
+  }
+})
 const array  = [5,4,7,8,9,2];
 Sum
 array.reduce((a,b) => a+b);
@@ -1471,3 +1482,45 @@ array.reduce((a,b) => a>b?a:b);
 Min
 array.reduce((a,b) => a<b?a:b);
 // Output: 2
+
+Handle Call Back URL
+callBackURL = 'https....'
+const decode = decodeURIComponent(callBackURL)
+const url = getQueryParams(decode).token
+External link
+window.location.href = url
+
+// Assuming "?post=1234&amp;action=edit"
+
+var urlParams = new URLSearchParams(window.location.search);
+
+console.log(urlParams.has('post')); // true
+console.log(urlParams.get('action')); // "edit"
+console.log(urlParams.getAll('action')); // ["edit"]
+console.log(urlParams.toString()); // "?post=1234&amp;action=edit"
+console.log(urlParams.append('active', '1')); // "?post=1234&amp;action=edit&amp;active=1"
+
+CHECK ONLINE USER
+window.addEventListener('load', function() {
+  var status = document.getElementById("status");
+  var log = document.getElementById("log");
+
+  function updateOnlineStatus(event) {
+    var condition = navigator.onLine ? "online" : "offline";
+
+    status.className = condition;
+    status.innerHTML = condition.toUpperCase();
+
+    log.insertAdjacentHTML("beforeend", "Event: " + event.type + "; Status: " + condition);
+  }
+
+  window.addEventListener('online',  updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+});
+
+function objFromArray(array, key = 'id') {
+  return array.reduce((accumulator, current) => {
+    accumulator[current[key]] = current;
+    return accumulator;
+  }, {});
+}
