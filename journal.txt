@@ -1547,4 +1547,30 @@ const users = [{
 
 users.reduce((acc, { name, age }) => {
     return (age > 18) ? [...acc, name] : acc;
-} , []) => ["Ronaldo", "Anoystick"]
+} , []) => ["Ronaldo", "Anoystick"];
+
+const defaultTxt = 'Làm gì đây ở đây';
+const textOptions = {
+    citation: 'Bạn nhân được một tin nhắn từ {{actingUser}}.',
+    follow:   '{{actingUser}} bắt đầu theo dõi bạn',
+    mention:  '{{actingUser}} nhắc bạn trong một bài viết',
+}
+function getNotificationPtrn(textOptions, n) {
+    return textOptions[n.type] || defaultTxt;
+}
+const notificationPtrn = getNotificationPtrn(textOptions, notification);
+
+  Array.prototype.indexOfPropValue = function (prop, value) {
+    for (var i = 0; i < this.length; ++i) {
+      if (this[i][prop]) {
+        if (this[i][prop] === value) {
+          return i;
+        }
+      }
+    }
+    return -1;
+  };
+
+const ARR = [{"doCode": "AnXXX"}, {"doCode": "TuanXXX"}];
+const r = {"doCode": "TuanXXX"};
+const indx =  ARR.indexOfPropValue("doCode", r.doCode) => 1
