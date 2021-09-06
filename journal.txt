@@ -1518,9 +1518,33 @@ window.addEventListener('load', function() {
   window.addEventListener('offline', updateOnlineStatus);
 });
 
+TURN Collection => config Object
 function objFromArray(array, key = 'id') {
   return array.reduce((accumulator, current) => {
     accumulator[current[key]] = current;
     return accumulator;
   }, {});
 }
+
+const players = ["Cr7", "LM10", "Ney10"];
+
+const photocopy = player => {
+	return `${player} đang chơi cho đội nào vậy`
+}
+
+players.map(photocopy) => ["Cr7 đang chơi cho team nào vậy", "LM10 đang chơi cho team nào vậy", "Ney10 đang chơi cho team nào vậy"]
+
+const users = [{
+    name: 'Ronaldo',
+    age: 23
+}, {
+    name: 'Messi',
+    age: 14
+}, {
+    name: 'Anoystick',
+    age: 22
+}];
+
+users.reduce((acc, { name, age }) => {
+    return (age > 18) ? [...acc, name] : acc;
+} , []) => ["Ronaldo", "Anoystick"]
