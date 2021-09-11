@@ -1573,4 +1573,30 @@ const notificationPtrn = getNotificationPtrn(textOptions, notification);
 
 const ARR = [{"doCode": "AnXXX"}, {"doCode": "TuanXXX"}];
 const r = {"doCode": "TuanXXX"};
-const indx =  ARR.indexOfPropValue("doCode", r.doCode) => 1
+const indx =  ARR.indexOfPropValue("doCode", r.doCode) => 1;
+
+Array.prototype.objFromArray = function(prop) {
+      const key = prop || 'id'
+      return  this.reduce((acc, i) => {
+         acc[i[key]] = i
+        return acc
+}, {})
+}
+const AR = [{name: "Cr7", club: 'MU', id: 999}, {name: "LM30", club: 'PSG', id: 1000}, {name: "NY10", club: 'PSG', id: 995}];
+AR.objFromArray('id') => {
+    "995": {
+        "name": "NY10",
+        "club": "PSG",
+        "id": 995
+    },
+    "999": {
+        "name": "Cr7",
+        "club": "MU",
+        "id": 999
+    },
+    "1000": {
+        "name": "LM30",
+        "club": "PSG",
+        "id": 1000
+    }
+}
