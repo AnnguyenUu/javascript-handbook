@@ -1639,5 +1639,18 @@ const checkIfItsDone = () => {
       console.error(err)
     })
 }
-
 checkIfItsDone()
+
+
+const arr = [{d: 1, c: 2}, {d: 2, c: 3}, {d: 1, c: 2}, {d:2, c:3}, {d:4, c: 5}]
+const uniqueAr = uniqBy(a, JSON.stringify) => import uniqBy from 'lodash/uniqBy';
+
+VANILA JS
+
+const uniqArr = (a, key) => {
+    let seen = new Set();
+    return a.filter(item => {
+        let k = key(item);
+        return seen.has(k) ? false : seen.add(k);
+    });
+}
