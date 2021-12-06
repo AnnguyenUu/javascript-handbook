@@ -1678,3 +1678,25 @@ Array.prototype.findAndRemove = function (value, key = null) {
         ...this.slice(index + 1)
     ] : this;
 }
+
+function limit(c){
+    return this.filter((x,i)=>{
+        if(i<=(c-1)){return true}
+    })
+}
+
+Array.prototype.limit = limit;
+
+console.log(JSON.stringify(arr.limit(2))) ;//get giới hạn 2 records
+
+function skip(c){
+    return this.filter((x,i)=>{
+    if(i>(c-1)){return true}
+    })
+}
+
+Array.prototype.skip = skip;
+
+console.log(JSON.stringify(arr.skip(2))) ;//bỏ qua 2 records đầu tiên
+
+
