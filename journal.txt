@@ -1654,3 +1654,27 @@ const uniqArr = (a, key) => {
         return seen.has(k) ? false : seen.add(k);
     });
 }
+
+NEW MAP
+
+const actions = new Map([
+  ['1', ['processing']],
+  ['2', ['fail']],
+  ['3', ['fail']],
+  ['4', ['success']],
+  ['5', ['cancel']],
+  ['default', ['other']]
+])
+
+const clickHandler = (status) => {
+  let action = actions.get(status) || actions.get('default')
+  sendLog(action[0])
+}
+
+Array.prototype.findAndRemove = function (value, key = null) {
+    const index = this.findIndex(obj => (!!obj[key]) ? obj[key] === value : obj === value);
+    return index >= 0 ? [
+        ...this.slice(0, index),
+        ...this.slice(index + 1)
+    ] : this;
+}
