@@ -1699,4 +1699,12 @@ Array.prototype.skip = skip;
 
 console.log(JSON.stringify(arr.skip(2))) ;//bỏ qua 2 records đầu tiên
 
+MERGE KEY INTO OBJECT WITH CONDITION
+
+const MANU = true;
+const player = {
+    name: 'cr7',
+    age: 35,
+    ... (MANU && {club: 'manu'})
+} 
 
