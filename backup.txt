@@ -1,0 +1,508 @@
+import React, { useState, useEffect, useCallback } from "react";
+import { Form, Row, Col, Spin, Input } from "antd";
+import { connect, useDispatch } from "react-redux";
+import { compose } from "redux";
+import SendingForm from "./SendingForm";
+import ReceiveForm from "./ReceiveForm";
+import Cargo from "./cargoInfor";
+import Checkout from "./checkoutInfor";
+import http from "src/redux/Network/superAxios";
+import Constants from "src/variables/Constants/index";
+import { debounce, pick, isEqual } from "lodash";
+import { useIsMount } from "src/components/NTX/isMount";
+import {
+  notifyError,
+  notifySucess,
+} from "src/components/NTX/Utils/NTXnotification.js";
+import helpers, {
+  revertCurrency,
+  getPostPaidCode,
+  getUserId,
+  reDirectUrl,
+  getUserToken,
+} from "src/lib/helpers";
+import CODpopup from "../components/CodPU";
+import Footer from "./Footer";
+import {
+  paramsPushRMQ,
+  paramsCalFee,
+  paramsPromote,
+  ResetFormCreateBill,
+  ParamsToPushRMQ,
+  FormFields,
+} from "./create_bill_params";
+// redux
+import { fetchPartnerSetting } from "src/redux/actions/paymentListActions";
+import { fetchServices } from "src/redux/actions/serviceAction";
+import { fetchPaymentMethod } from "src/redux/actions/paymentListActions";
+import { fetchBank } from "src/redux/actions/bankAction";
+import { fetchCargo } from "src/redux/actions/cargoActions";
+import { FormBillContext } from "src/components/NTX/NTXContext/FormBillContext";
+import Filter from "./Filter";
+
+const mapStateToProps = (state) => ({
+  geo: state.geoReducer,
+  bank: state.bankReducer.bank,
+  cargo: state.cargoReducer.cargo,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadGoogle: (payload) => dispatch({ type: "GOOGLE_OBJ", payload }),
+});
+
+const NTXForm = ({
+  promotionCode,
+  billEdit,
+  cargo,
+  bank,
+  revoke = false,
+  caresoft = false,
+  infoBill,
+}) => {
+  const partnerID = getUserId();
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const isMount = useIsMount();
+  const [listService, setListService] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const [mainParams, setMainParams] = useState({});
+  const [totalFee, setTotalFee] = useState(null);
+  const [discount, setDiscount] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const [keyForm, setKeyForm] = useState("");
+
+  const fetchSetting = useCallback(() => {
+    dispatch(fetchPartnerSetting({ partner_id: partnerID }));
+  }, [dispatch, fetchPartnerSetting]); //eslint-disable-line
+
+  const fetchServiceNTX = useCallback(() => {
+    dispatch(fetchServices());
+  }, [dispatch, fetchServices]);
+
+  const fetchCargoData = useCallback(() => {
+    dispatch(fetchCargo({}));
+  }, [dispatch, fetchCargo]);
+
+  const fetchBankData = useCallback(() => {
+    const bankParams = {
+      status: Constants.ACTIVE,
+    };
+    dispatch(fetchBank(bankParams));
+  }, [dispatch, fetchBank]);
+
+  const paymentParams = () => {
+    const ppCode = getPostPaidCode();
+    const isHavePP = [ppCode, ppCode !== "null", !caresoft].every(Boolean);
+    if (isHavePP) {
+      return {
+        post_paid_code: Constants.ON,
+      };
+    }
+    return {};
+  };
+
+  const fechPayment = useCallback(() => {
+    let payParams = paymentParams();
+    dispatch(fetchPaymentMethod(payParams));
+  }, [dispatch, fetchPaymentMethod]);
+
+  useEffect(() => {
+    fetchBankData();
+  }, [fetchBankData]);
+
+  useEffect(() => {
+    fechPayment();
+  }, [fechPayment]);
+
+  useEffect(() => {
+    fetchServiceNTX({});
+  }, [fetchServiceNTX]);
+
+  useEffect(() => {
+    fetchCargoData();
+  }, [fetchCargoData]);
+
+  useEffect(() => {
+    fetchSetting();
+  }, [fetchSetting]);
+
+  useEffect(() => {
+    if (Object.values(billEdit || {}).length) return;
+    // if (!cargo?.length) return;
+    customRestartField();
+  }, []);
+
+  useEffect(() => {
+    setData(billEdit);
+  }, [billEdit]);
+
+  const setData = (billEdit) => {
+    if (!Object.values(billEdit ?? {}).length) return;
+    const editForm = new FormFields(form, billEdit, promotionCode);
+    editForm.setup();
+    setTotalFee(billEdit?.cod_amount);
+    onFeeCalculated();
+  };
+
+  const calculatedFee = async () => {
+    setIsLoading(true);
+    setDisabled(true);
+    let params = paramsCalFee(form);
+    try {
+      let payload = await http.BillNTX.calculatedFee(params);
+      if (!payload.success) {
+        notifyError(Constants.CALCULATED_FEE_FAIL);
+        return;
+      }
+      setListService(payload.data);
+    } catch (error) {
+      console.log("Server failed", error);
+    } finally {
+      setDisabled(false);
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (isMount) return;
+    let geneKey = generateKey();
+    setKeyForm(geneKey);
+  }, [listService]);
+  const generateKey = React.useCallback(() => {
+    const obj = pick(form.getFieldsValue(), Constants.CALCULATEDREF);
+    return Object.values(obj || {}).join("");
+  }, [form]);
+  const compareKeyForm = () => {
+    let currentKey = generateKey();
+    return isEqual(keyForm, currentKey);
+  };
+  const getFieldsFormError = () => {
+    const errorFields = form.getFieldsError(Constants.ERROR_FIELDS_BILL);
+    return Array.from(errorFields, ({ errors }) => errors.length).some(Boolean);
+  };
+  const getFieldsRequiredValue = () => {
+    const values = form.getFieldsValue(Constants.REQUIRED_FIELDS);
+    return Object.values(values).every(Boolean);
+  };
+  const preventCalFee = () => {
+    const compareForm = compareKeyForm();
+    const validateError = getFieldsFormError();
+    const requiredFields = getFieldsRequiredValue();
+    return [!requiredFields, validateError, compareForm].some(Boolean);
+  };
+  const onFeeCalculated = () => {
+    if (!+form.getFieldValue(Constants.WEIGHT)) return;
+    const resultPrevent = preventCalFee();
+    if (resultPrevent) return;
+    calculatedFee();
+  };
+  const handleFinish = {
+    true: function () {
+      setVisible(true);
+    },
+    false: function () {
+      onPushBill();
+    },
+  };
+  const onFinish = (values) => {
+    const checkAmount = [values?.cod_amount, (!bank ?? []).length].every(
+      Boolean
+    );
+    handleFinish[checkAmount]();
+  };
+  const handleParamsRMQ = (form) => {
+    const params = new ParamsToPushRMQ(form);
+    return params.setUp();
+  };
+  const onPushBill = () => {
+    if ((form.getFieldError(Constants.S_ADDRESS) ?? []).length) return;
+    let params = handleParamsRMQ(form);
+    setMainParams(params);
+  };
+  const isEdit = React.useMemo(() => {
+    return Boolean(Object.values(billEdit ?? {}).length);
+  }, [billEdit]);
+
+  const calculated = React.useMemo(() => {
+    return Boolean(Object.values(listService ?? {}).length);
+  }, [listService]);
+
+  const pushBillRMQ = React.useCallback(async () => {
+    const preventPush = [isMount, !calculated].some(Boolean);
+    if (preventPush) return;
+    let params = paramsPushRMQ(mainParams, listService, form);
+    sendRequestRMQ(params);
+  }, [mainParams]);
+
+  useEffect(() => {
+    pushBillRMQ();
+  }, [pushBillRMQ]); //eslint-disable-line
+
+  const sendRequestRMQ = (params) => {
+    const type = isEdit ? Constants.EDIT : Constants.CREATE;
+    const checkPattern = type in ACTION;
+    if (!checkPattern) return;
+    ACTION[type](params);
+  };
+
+  const handleAfterRequest = {
+    false: function (m) {
+      notifyError(m ?? Constants.QUEUE_CREATE_UNSUCCESSFUL);
+      return;
+    },
+    true: function (m) {
+      const message = isEdit
+        ? Constants.QUEUE_UPDATE_SUCCESSFUL
+        : Constants.QUEUE_CREATE_SUCCESSFUL;
+      handleSuccess(message);
+      reDirectPage();
+    },
+  };
+
+  const reDirectPage = () => {
+    reDirectUrl(
+      Constants.ROUTE_DONE_CREATE_BILL,
+      isEdit
+        ? {
+            id: billEdit.id,
+          }
+        : {}
+    );
+  };
+  const createNewBill = (params) => {
+    if (revoke) return http.BillNTX.billRevoke(params);
+    if (caresoft) return http.BillNTX.billCareSoft(params);
+    return http.BillNTX.pushBillToRMQ(params);
+  };
+  const updateBill = (params) => {
+    return http.BillNTX.upDateBill(params, billEdit.id);
+  };
+  const actionBill = (params) => {
+    return isEdit
+      ? updateBill(helpers.postMethod(params))
+      : createNewBill(helpers.postMethod(params));
+  };
+  const sendRequest = async (params) => {
+    setIsLoading(true);
+    try {
+      const payload = await actionBill(params);
+      handleAfterRequest[`${Boolean(payload?.success)}`](payload?.message);
+    } catch (error) {
+      console.log("server", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const ACTION = {
+    create: function (params) {
+      const CREATEPARAMS = caresoft
+        ? Constants.CREATEBILL_CS
+        : Constants.CREATEBILL;
+      const p = pick(params, CREATEPARAMS);
+      sendRequest(p);
+    },
+    edit: function (params) {
+      const p = { ...billEdit, ...params };
+      sendRequest(p);
+    },
+  };
+  const handleSuccess = (message) => {
+    customRestartField();
+    notifySucess(message);
+  };
+  const onFinishFailed = () => setSubmitted(true);
+  const customRestartField = () => {
+    form.setFieldsValue({
+      service_id: Constants.SERVICE_TYPE.STANDARD.value,
+      payment_method_id: Constants.PAYMENT.NGTTN,
+      note: Constants.PACKAGE_NOTE[0].name,
+      queue_name: Constants.QUEUE_NAME,
+      utm_source: Constants.UTM_SOURCE,
+      user_id: getUserId(),
+      authorization: getUserToken(),
+      partner_id: getUserId(),
+      transport_by_id: Constants.TRANSPORT[0].value,
+      promotion_code: promotionCode || "",
+    });
+    setListService(Object.create(null));
+    setTotalFee(null);
+  };
+  const printCodAmt = debounce((v) => {
+    setTotalFee(revertCurrency(v.cod_amount));
+  }, 100);
+  const strategies = {
+    cod_amount: function (v) {
+      return printCodAmt(v);
+    },
+    attach_revoke: function () {
+      form.resetFields(["revoke_bill"]);
+    },
+  };
+  const FormMid = function () {
+    this.add = function (value, key) {
+      const check = key in strategies;
+      if (!check) return false;
+      return strategies[key](value);
+    };
+  };
+  const onValuesChange = debounce((v) => {
+    const key = Object.keys(v)[0];
+    const formM = new FormMid();
+    formM.add(v, key);
+    if (!Constants.ADDRESS_FIELDS.includes(key)) return;
+    onFeeCalculated();
+  }, 250);
+  const processPromote = () => {
+    let promotion_code = form.getFieldValue(Constants.PROMOTION_CODE) ?? "";
+    let params = paramsPromote(promotion_code, listService, form);
+    applyPromote(params);
+  };
+  const applyPromote = async (params) => {
+    setIsLoading(true);
+    try {
+      const payload = await http.BillNTX.checkCoupon(params);
+      if (!payload.success) {
+        notifyError(payload?.message ?? "");
+        return;
+      }
+      setFormPromote(payload.data);
+    } catch (error) {
+      console.log("server", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const setFormPromote = (data) => {
+    let promoteResult = 0;
+    (data ?? []).map((i) => {
+      promoteResult = i.reduceAmount;
+    });
+    form.setFieldsValue({
+      discount: promoteResult,
+      coupon_code: null,
+    });
+    setDiscount(promoteResult);
+  };
+  const debounceCalFee = debounce(() => {
+    onFeeCalculated();
+  }, 100);
+  const roundPackageNo = () => {
+    // if (+form.getFieldValue(Constants.PACKAGE_NO) > 0) {
+    //   form.setFieldsValue({
+    //     package_no: Math.round(form.getFieldValue(Constants.PACKAGE_NO)),
+    //   });
+    // }
+  };
+  const onBlurCargo = () => {
+    // roundPackageNo();
+    onFeeCalculated();
+  };
+  const turnOffModal = () => {
+    setVisible(false);
+    onPushBill();
+  };
+  return (
+    <Spin spinning={isLoading}>
+      <Row>
+        {visible && (
+          <CODpopup
+            visible={visible}
+            onCancel={(_) => setVisible(false)}
+            onNext={turnOffModal}
+          />
+        )}
+        <Row>
+          {/* <FormBillContext.Provider
+            value={{ revoke: revoke, infoBill, caresoft: caresoft }}
+          > */}
+          <Form
+            form={form}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            onValuesChange={onValuesChange}
+            className="form_create_bill"
+            id="create-bill-form"
+            layout="vertical"
+            name="register"
+            scrollToFirstError
+          >
+            <Row gutter={[4, 4]}>
+              {revoke ? (
+                <Col xxl={{ span: 24 }} xl={{ span: 24 }} md={{ span: 24 }}>
+                  <Filter form={form} onBlur={debounceCalFee} />
+                </Col>
+              ) : null}
+              <Col xxl={{ span: 12 }} xl={{ span: 12 }} md={{ span: 24 }}>
+                <Row gutter={[4, 4]}>
+                  <Col xxl={{ span: 24 }} xl={{ span: 24 }} md={{ span: 24 }}>
+                    <SendingForm
+                      className="full_height"
+                      billEdit={billEdit}
+                      form={form}
+                      onChange={debounceCalFee}
+                    />
+                  </Col>
+                  <Col xxl={{ span: 24 }} xl={{ span: 24 }} md={{ span: 24 }}>
+                    <Cargo
+                      billEdit={billEdit}
+                      listService={listService}
+                      form={form}
+                      onChangeService={onFeeCalculated}
+                      onBlur={onBlurCargo}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+              <Col xxl={{ span: 12 }} xl={{ span: 12 }} md={{ span: 24 }}>
+                <Row gutter={[4, 4]}>
+                  <Col xxl={{ span: 24 }} xl={{ span: 24 }} md={{ span: 24 }}>
+                    <ReceiveForm
+                      caresoft={caresoft}
+                      cardheader
+                      isSend={false}
+                      submitted={submitted}
+                      form={form}
+                      billEdit={billEdit}
+                      onFillForm={onFeeCalculated}
+                      onBlur={onFeeCalculated}
+                    />
+                  </Col>
+                  <Col xxl={{ span: 24 }} xl={{ span: 24 }} md={{ span: 24 }}>
+                    <Checkout
+                      form={form}
+                      billEdit={billEdit}
+                      listService={listService}
+                      onBlur={onFeeCalculated}
+                      onApply={processPromote}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <Col xl={{ span: 24 }} xxl={{ span: 24 }} md={{ span: 24 }}>
+              {Constants.BILL_FIELDS_HIDDEN.map((i) => {
+                return (
+                  <Form.Item name={i} hidden>
+                    <Input />
+                  </Form.Item>
+                );
+              })}
+            </Col>
+          </Form>
+          {/* </FormBillContext.Provider> */}
+        </Row>
+        <Footer
+          listService={listService}
+          discount={discount}
+          totalFee={totalFee}
+          billEdit={billEdit}
+          disabled={disabled}
+          onRefresh={customRestartField}
+        />
+      </Row>
+    </Spin>
+  );
+};
+export default compose(connect(mapStateToProps, mapDispatchToProps))(NTXForm);
