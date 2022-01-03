@@ -1727,3 +1727,27 @@ O - Open/Closed Principle;
 L - Liskov’s Substitution Principle;
 I - Interface Segregation Principle;
 D - Dependency Inversion Principle;
+
+use forwardRef => handle child function from parent component
+
+const ChildCom = React.forwardRef((props, ref) => {
+	const incrseaseNumber = () => setNumber(number + 1);
+	React.useImperativeHandle(ref, () => ({
+    incrseaseNumber: () => {
+      incrseaseNumber()
+    }
+  }));
+});
+
+const ParentCom = () => {
+	const inputRef = React.useRef();
+	const parentClick = () => {
+		inputRef.current?.incrseaseNumber()
+	}
+	return (
+		<div>
+			<ChildCom ref={inputRef} />
+			<Button onClick={parentClick}>Click Xem</Button>
+		</div>)
+}
+
