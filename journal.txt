@@ -1750,4 +1750,20 @@ const ParentCom = () => {
 			<Button onClick={parentClick}>Click Xem</Button>
 		</div>)
 }
+Undefined means a variable has been declared but has no value:
+Null is an assignment:
 
+Check Object has own some property
+
+const obj = {name: 'Cristiano Ronaldo', age: '37'}
+
+'name' in obj // true
+'club' in obj // false
+
+Object.hasOwn(obj, 'name') // true
+Object.hasOwn(obj, 'club') // false
+
+let hasOwnProperty = Object.prototype.hasOwnProperty
+
+hasOwnProperty.call(obj, 'name') // true
+hasOwnProperty.call(obj, 'club') // false
