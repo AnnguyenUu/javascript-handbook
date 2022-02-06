@@ -1767,3 +1767,10 @@ let hasOwnProperty = Object.prototype.hasOwnProperty
 
 hasOwnProperty.call(obj, 'name') // true
 hasOwnProperty.call(obj, 'club') // false
+
+STACK - FILO (LAST IN FIRST OUT): method: pop, push, peek
+QUEUE - FIFO (FIRST IN FIRST OUT)
+
+Props cause re render in React
+
+First when props change componentDidUpdate is called whenever component updates and if shouldComponentUpdate return true (if shouldComponentUpdate is not defined, it return true default ) => RE RENDER
