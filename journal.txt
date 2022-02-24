@@ -1774,3 +1774,11 @@ QUEUE - FIFO (FIRST IN FIRST OUT)
 Props cause re render in React
 
 First when props change componentDidUpdate is called whenever component updates and if shouldComponentUpdate return true (if shouldComponentUpdate is not defined, it return true default ) => RE RENDER
+
+const data = { a: 1, b: 2, c: 3 };
+
+const removeProp = 'b';
+
+const { [removeProp]: remove } = data;
+
+console.log(remove); // 2
