@@ -1782,3 +1782,13 @@ const removeProp = 'b';
 const { [removeProp]: remove } = data;
 
 console.log(remove); // 2
+
+Array.includes(item) => Big Onation is n.
+Object literals => Big Onation is 1.
+
+example: [undefined, '', null].includes('An') => Big Onation is n.
+example: Obj = {
+	[undefined]: true,
+	['']: true,
+	null: true
+	} => Obj[undefined] => Big Onation is 1
