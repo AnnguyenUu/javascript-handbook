@@ -1792,3 +1792,9 @@ example: Obj = {
 	['']: true,
 	null: true
 	} => Obj[undefined] => Big Onation is 1
+let object = { age: 24 }
+Object.hasOwn(object, 'age') // true
+let object2 = Object.create({ age: 24 })
+Object.hasOwn(object2, 'age') // false  The 'age' attribute exists on the prototype
+let object3 = Object.create(null)
+Object.hasOwn(object3, 'age') // false an object that does not inherit from "Object.prototype"
