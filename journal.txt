@@ -1816,3 +1816,27 @@ function getDaysInMonth(month, year) {
   }
   return days;
 }
+
+// MERGE ARRAY AND UNIQUE ARRAY OF OBJECTS
+const arr1 = [{
+    name: "lang",
+    value: "English"
+  },
+  {
+    name: "age",
+    value: "18"
+  }
+];
+
+const arr2 = [{
+    name: "childs",
+    value: '5'
+  },
+  {
+    name: "lang",
+    value: "German"
+  }
+];
+
+const mergedArray = [...arr1, ...arr2];
+const uniqueData = [...mergedArray.reduce((map, obj) => map.set(obj.name, obj),
